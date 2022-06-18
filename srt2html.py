@@ -45,7 +45,8 @@ with open(fn, 'r') as f:
         diag(t(sub.end), duration < timedelta(0, 1, 0, 500), "too short", errors)
         print('<td>' + '<br>'.join(map(escape, sub.content.split('\n'))) + '</td>')
         #words = sum([len(l.split(' ')) for l in sub.content.split('\n')])
-        cps = sum([len(l) for l in sub.content.split('\n')]) / duration.seconds
+        chars = sum([len(l) for l in sub.content.split('\n')])
+        cps = chars / duration.seconds if duration.seconds else chars
         diag(str(math.ceil(cps)), cps > 15, 'too many characters', errors)
         print('<td>' + ', '.join(map(escape, errors)) + '</td>')
         print('</tr>')
